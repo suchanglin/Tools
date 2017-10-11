@@ -1,0 +1,11 @@
+ http://www.ihref.com/read-16377.html
+ 
+ 
+ GitHub官网关联：
+1.个人头像右侧倒三角下拉菜单
+2.Settings
+3. 左侧选择 SSH and GPG keys  
+4.右上角绿色按钮 New SSH keys 
+5. Title （自由填写你喜欢的名字）
+6.Key  （粘贴上述网站http://www.ihref.com/read-16377.html方法获得的 id_rsa.pub 文件）
+7.Add SSH keys  确认。

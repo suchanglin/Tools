@@ -543,3 +543,14 @@ Alt + Shift + 5：进行上下左右分屏
 
 原文出处：有详细截图，阅读效果更佳
 http://www.cnblogs.com/figure9/p/sublime-text-complete-guide.html
+
+推荐插件
+快速写代码HTML+CSS量身定制——Emmet（原名Zen Coding）
+侧边栏增强——SideBarEnhancements
+语法及风格校验——SublimeLinter3
+（需根据个人需求下载对应子插件，如JS代码校验，需安装SublimeLinter3 - jshint，并本地安装node.js）
+JS代码格式化——JsFormat
+多语言代码提示——SublimeCodeIntel
+取色器——ColorPicker
+
+
