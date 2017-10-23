@@ -18,3 +18,207 @@ http://www.imooc.com/article/10971
 
 快速入门webpack（5）- 相关链接
 http://www.imooc.com/article/10973
+
+
+
+----------------------------------------------------------------------------------------------
+一.webpack基础
+　　1.在项目中生成package.json：在项目根目录中输入npm init，根据提示输入相应信息。（也可以不生成package.json文件，但是package.json是很有用的，所有建议生成）
+
+　　2.安装webpaack
+
+　　　　a.在全局中安装webpack：npm install webpack -g
+
+　　　　b.将webpack安装到项目并将webpack写入package.json的devDependencies中：进入项目根目录，然后在命令行中输入npm install webpack --save-dev。
+
+　　3.打包模块
+
+　　webpack <entry> <output>。<entry>用于指定打包的文件，<output>用于指定打包后的文件。如webpack app/index.js 　　　　　　build/build.js表示将app文件夹中的index.js打包到build文件夹中的build.js中。
+
+二.webpack配置文件常用配置项介绍
+
+　　1.webpack有一个默认的配置文件webpack.config.js，这个文件需要手动的创建，位于项目根目录中。可以为一个项目设置多个配置文件，已达到不同的配置文件完成不同的功能。怎么设置后面介绍。
+
+　　2.webpack的配置文件会暴露出一个对象，格式如下：
+
+　　　　module.exports = {
+　　　　　　//配置项
+　　　　}
+
+　　3.常用配置项将要说明
+
+　　　　entry:打包的入口文件，一个字符串或者一个对象
+　　　　output:配置打包的结果，一个对象
+　　　　　　fileName：定义输出文件名，一个字符串
+　　　　　　path：定义输出文件路径，一个字符串
+　　　　module:定义对模块的处理逻辑，一个对象
+　　　　　　loaders：定义一系列的加载器，一个数组
+　　　　　　　　[
+　　　　　　　　　　{
+　　　　　　　　　　　　test:正则表达式，用于匹配到的文件
+　　　　　　　　　　　　loader/loaders：字符串或者数组，处理匹配到的文件。如果只需要用到一个模块加载器则使用　　　　　　　　　　　　　　　　　loader：string，如果要使用多个模块加载器，则使用loaders：array
+
+　　　　　　　　　　　　include:字符串或者数组，指包含的文件夹
+　　　　　　　　　　　　exclude：字符串或者数组，指排除的文件夹
+　　　　　　　　　　}
+　　　　　　　　]
+　　　　resolve:影响对模块的解析，一个对象
+　　　　　　extensions：自动补全识别后缀，是一个数组
+
+　　　　plugins:定义插件，一个数组
+
+　　4.entry详细说明
+
+　　　　（1）当entry是一个字符串时，这个字符串表示需要打包的模块的路径,如果只有一个要打包的模块，可以使用这种
+　　　　形式
+
+　　　　（2）当entry是一个对象
+　　　　　　a.是数组时,当需要将多个模块打包成一个模块，可以使用这个方式。如果这些模块之间不存在依赖，数组中
+　　　　　　值的顺序没有要求，如果存在依赖，则要将依赖性最高的模块放在最后面。
+　　　　　　例如：entry:["./app/one.js",".app/two.js"]
+　　　　　　b.是键值对形式的对象是，当需要分别打包成多个模块时，可以使用这种方式，例如；
+　　　　　　entry:{
+　　　　　　　　module1:"./app/one.js",
+　　　　　　　　module2:["./app/two.js","./app/three.js"]
+　　　　　　}
+　　　　注:当entry是一个键值对形式的对象时，包名就是键名，output的filename不能是一个固定的值，因为每个包的
+　　　　名字不能一样
+
+　　5.output详细说明
+
+　　　　（1）output是一个对象
+
+　　　　（2）output.filename:指定输出文件名，一个字符串。当输出一个文件，output.filename为一个确定的字符串
+　　　　　　如：output:{
+　　　　　　　　　　filename:"build.js"
+　　　　　　　　　　　　}
+　　　　　　当输出多个文件，output.filename不能为一个确定的字符串。为了让每个文件有一个唯一的名字，需要用到下面
+　　　　　　的变量
+　　　　　　[name] is replaced by the name of the chunk.对应entry的键名
+
+　　　　　　[hash] is replaced by the hash of the compilation.
+
+　　　　　　[chunkhash] is replaced by the hash of the chunk.
+
+　　　　　　如：output:{
+
+　　　　　　　　　　path:'./build/',
+
+　　　　　　　　　　fialname:'[name].js'
+
+　　　　　　　　}
+　　　　　　（3）output.path:指定输出文件的路径，相对路径，一个字符串
+　　　　　　（4）output中还有其他的一些值，不在这里说明,可以在webpack的官方网站中获得更多的详细信息
+
+　　6.module.loaders详细说明
+
+　　　　（1）module是一个对象，定义对模块的处理逻辑
+　　　　（2）module.loaders是一个数组，定义一系列加载器，这个数组中的每一项都是一个对象
+　　　　（3）module.loaders:[
+　　　　　　　　{
+　　　　　　　　　　test:正则，用于匹配要处理的文件
+　　　　　　　　　　loader/loaders: 字符串或者数组， 如果只需要用到一个模块加载器 ,则使用loader：string，
+　　　　　　　　　　如果要使用多个模块加载器，则使用loaders：array
+　　　　　　　　　　include:字符串或者数组，指包含的文件夹
+　　　　　　　　　　exclude：字符串或者数组，指排除的文件夹
+　　　　　　　　}
+　　　　　　]
+　　　　（4）module除了可以配置loaders以外还能配置其他的值,在webpack的官网中获得更多的信息
+
+　　7.resolve.extensions详细说明
+
+　　　　（1）resolve.extensions并不是必须配置的，当不配置时，会使用默认值
+　　　　["", ".webpack.js", ".web.js", ".js"]，当手动为resolve.extensions设置值，
+　　　　它的默认值会被覆盖
+　　　　（2）如果你想要每个模块都能够按照它们自己扩展名正确的被解析，要在数组中添加一个空字符串。
+　　　　（3）如果你想请求一个js文件但是在请求时不带扩展（如：require('somecode')）,那么就需要
+　　　　将'.js'添加到数组中。其他文件一样
+　　　　（4）resolve还有其他的配置项，在webpack的官网获得更多信息
+
+　　8.补充
+
+　　　　（1）当设置了配置文件后，在命令行中输入webpack就可按照默认配置文件中的配置项打包模块了。
+
+　　　　（2）设置多个webpack配置文件。webpack默认的配置文件是webpack.config.js,当在命令行中输入webpack时默认找的是　　　　　　　　　　webpack.config.js。通过在package.json的scripts中添加例如
+　　　　"start-html":"webpack --config webpack.html.config.js"
+　　　　在命令行中输入npm run start-html查找的就是webpack.html.config.js，通过这种方式可以实现不同的
+　　　　配置文件有不同的用处，这样就不用反复修改同一个配置文件
+
+　　9.下面是一个简单的配置文件
+
+　　
+
+
+module.exports = {
+    entry:{
+        one:"./app/one.js",
+        two:"./app/two.js"
+    },
+    output:{
+        path:"./build/",
+        filename:"[name].js"
+    },
+    module:{
+        loaders:[
+            {
+                test:/.*\.css$/,
+                loaders:["style","css"],
+                exclude:'./node_modules/'
+            }
+        ]
+    },
+    resolve:{
+        extensions:['','.css','.js','jsx']
+    }
+};
+
+ 
+
+
+三.webpack-dev-server
+　　1.webpack-dev-server是一个轻量级的服务器，修改文件源码后，自动刷新页面将修改同步到页面上
+
+　　2.安装webpack-dev-server：
+　　　　全局安装：npm install webpack-dev-server -g
+　　　　在项目中安装并将依赖写在package.json文件中:npm install webpack-dev-server --save-dev
+
+　　3.使用命令webpack-dev-server --hot --inline完成自动刷新
+　　4.默认的端口号是8080，如果需要8080端口被占用，就需要改端口，webpack-dev-server --port 3000(将端口号改为3000)
+
+　　5.安装webpack-dev-server后就可以在命令行中输入webpack-dev-server开启服务，然后在浏览器地址栏中
+　　输入localhost:端口号，就可以在浏览器中打开项目根目录的index.html文件，如果项目根目录中没有index.html
+　　文件，就会在浏览器中列出项目根目录中的所有的文件夹。
+　　6.第五条只是启动服务并不能自动刷新，要自动刷新需要用到webpack-dev-server --hot --inline
+
+　　7.当使用webpack-dev-server --hot --inline命令时，在每次修改文件，是将文件打包
+　　保存在内存中并没有写在磁盘里(默认是根据webpack.config.js打包文件，通过--config xxxx.js修改)，这种打包得到的文件
+　　和项目根目录中的index.html位于同一级（但是你看不到，因为
+　　它在内存中并没有在磁盘里）。使用webpack命令将打包后的文件保存在磁盘中
+　　例如在index.html文件中引入通过webpack-dev-server --hot --inline打包的build.js
+　　　　<script src="build.js"></script>
+　　在index.html文件中引入通过webpack命令打包的build.js
+　　　　<script src="./build/build.js"></script>
+
+　　8.每一次都敲一长串命令太麻烦，在项目根目录的package.json文件的scripts配置中添加配置，如
+　　"build":"webpack-dev-server --hot --inline",然后在命令行中输入 npm run build就能
+　　代替输入一长串命令（webpack-dev-server --hot --inline），运行webpack-dev-server --hot --inline默认是找　　　　　　　　webpack.config.js,通过--config命令可以修改为另一个配置文件。例如：webpack-dev-server --hot --inline --config 　　　　　'webpack.es6.config.js'
+
+　　9.配置根目录
+
+　　　　（1）当在命令行中输入webpack-dev-server --hot --inline，再在浏览器中输入localhost：端口号，浏览器会在项目的
+
+　　　　　根目录中去查找内容，通过--content-base可以配置根目录。
+
+　　　　如webpack-dev-server --hot --inline --content-base './build/'，在build文件夹中去加载index.html，如果没有
+
+　　　　index.html文件，将会在浏览器中显示所有build目录下的文件和文件夹
+
+四.例子
+　　我一个设置了两个webpack的配置文件分别是webpack.config.js和webpack.react.config.js。package.json文件中scripts对象的内容如下：
+
+　　"scripts": {
+　　"test": "echo \"Error: no test specified\" && exit 1",
+　　"react": "webpack --config webpack.react.config.js",
+　　"build": "webpack-dev-server --hot --inline --content-base ./build/",
+　　"build-react": "webpack-dev-server --hot --inline --content-base ./react-build/ --config webpack.react.config.js"
+　　　　}
