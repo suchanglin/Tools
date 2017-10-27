@@ -1,0 +1,45 @@
+
+
+1.安装XAMPP安装包到D盘，安装完成后，退出XAMPP集成环境，进入下一步，配置虚拟主机；首先在XAMPP/htdocs目录下新建目
+
+录magento2和test文件夹（此文件夹为你的项目全部内容）。
+
+PS.在创建多个虚拟主机时，也需要新建一个文件夹包含你的项目全部内容如magento2和test，如果还需要创建则再创建相应文件夹。
+
+2.找到你的XAMPP安装目录，依次打开以下目录：apache/conf/extra目录找到httpd-vhosts.conf文件，用记事本打开。
+
+3.打开http-vhosts.conf后，在最下面添加如下代码：
+
+<VirtualHost *:80>
+ ServerName www.magento2.com
+ DocumentRoot "D:/XAMPP/htdocs/magento2"
+<Directory "D:/XAMPP/htdocs/magento2"> 
+ Options FollowSymLinks IncludesNOEXEC Indexes
+ DirectoryIndex index.html index.htm index.php
+ AllowOverride all 
+ Order Deny,Allow 
+ Allow from all 
+ Require all granted
+</Directory>
+</VirtualHost>
+
+<VirtualHost *:80>
+ ServerName www.test.com
+ DocumentRoot "D:/XAMPP/htdocs/test"
+<Directory "D:/XAMPP/htdocs/test"> 
+ Options FollowSymLinks IncludesNOEXEC Indexes
+ DirectoryIndex index.html index.htm index.php
+ AllowOverride all 
+ Order Deny,Allow 
+ Allow from all   
+ Require all granted
+</Directory>
+</VirtualHost>
+4.此外，需要配置C盘host文件，依次找到下面的目录：C盘/windows/system32/drivers/etc目录，找到hosts文件，用记事本打开，添
+
+加127.0.0.1 www.magento2.com 保存，如：
+
+127.0.0.1   www.magento2.com
+127.0.0.1   www.test.com
+
+5.配置虚拟主机完成，重启XAMPP集成环境即可。
