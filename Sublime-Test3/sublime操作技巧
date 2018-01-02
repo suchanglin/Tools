@@ -1,0 +1,5 @@
+sublime  
+
+对于HTML,自动缩进:  Ctrl+A选中全部内容，然后在菜单中选择Edit->Line->Reindent
+
+对于JavaScript，自动缩进，CTRL+ALT+F
