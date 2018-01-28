@@ -1,0 +1,30 @@
+通过包安装管理器安装phpfmt插件.
+
+在sublime界面按快捷键 ctrl+shift+P
+
+选择并选择: Install Package
+
+等待片刻输入并选择 phpfmt
+
+
+
+
+配置 (Windows)
+打开并编辑配置文件 (references/Packages-settings/phpfmt/settings-user
+将 "php_bin" 的值设置为你电脑上php.exe的路径。如果找不到，就下载everything去搜索，关键字php.exe（注意路径的斜杠和反斜杠）
+
+
+
+我的配置是这样的
+
+{
+	"format_on_save": false,
+	"option": "value",
+	"php_bin": "G:/install/wamp64/bin/php/php7.0.10/php.exe",
+	"psr1": true,
+	"psr1_naming": true,
+	"psr2": true,
+	"version": 1
+}
+
+配置好之后默认  ctrl+F11  格式化代码。
