@@ -1,0 +1,7 @@
+sublime text3  可以下载关于vue的语法高亮插件。
+
+按住： ctrl + shift + p
+输入：install Package
+输入： Vue Syntax Highlight
+
+其他的css类型的高亮需要单独下载对应的插件：比如sass，less，stylus等
