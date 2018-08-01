@@ -1,0 +1,24 @@
+以添加vue为例子：
+
+1：安装SublimeTmpl 插件
+
+首先在sublime 里安装sublimeTmpl插件
+2.路径：C:\Users\你的用户名\AppData\Roaming\Sublime Text 3\Packages\SublimeTmpl\templates
+
+3：打开 Default.sublime-commands,复制粘贴以下配置
+
+   ,{
+        "caption": "Tmpl: Create vue", "command": "sublime_tmpl",
+        "args": {"type": "vue"}
+   }
+4：添加快捷键Default.sublime-keymap
+
+  ,{
+        "keys": ["ctrl+alt+e"], "command": "sublime_tmpl",
+        "args": {"type": "vue"}, "context": [{"key": "sublime_tmpl.vue"}]
+   }
+
+5：使用ctrl+alt+e就可以建立新的vue模板了
+
+在sublime 使用ctrl+alt+e就可以建立新的vue模板,然后保存成.vue文件就能使用了
+
