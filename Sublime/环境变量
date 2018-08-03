@@ -1,0 +1,12 @@
+HTML-CSS-JS Prettify报错node.js was not found in the default path
+
+经过折腾一下，修改环境变量路径也不行。
+后来官方提示：
+"node_path":
+    {
+        "windows": "C:/Program Files/nodejs/node.exe",
+        "linux": "/usr/bin/nodejs",
+        "osx": "/usr/local/bin/node"
+    },
+    
+    于是直接把安装好的node整个复制到  C:/Program Files文件夹下，OK了  
