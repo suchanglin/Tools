@@ -1,0 +1,5 @@
+每次push的时候如果需要填写姓名和密码，那么输入下方命令
+
+git config --global credential.helper store
+
+完成之后，首次提交还是需要填写姓名和密码的（确认需要）。第二次及以后都不需要。
