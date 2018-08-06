@@ -1,0 +1,15 @@
+ctrl+shift+p 打开安装控制台，选择Install Package,完成后，输入emmet安装此插件。完成后最好重启sublime。
+
+下面几个命令完成后，按键Tab即可看到对应模式的头片段。
+
+1.html:4t
+
+2.html:4s
+
+3.html:xs
+
+4.html:xt
+
+5.html:xxs
+
+6.html:5
