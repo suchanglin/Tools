@@ -13,3 +13,31 @@ ctrl+shift+p 打开安装控制台，选择Install Package,完成后，输入emm
 5.html:xxs
 
 6.html:5
+
+
+
+除了html:5,通用的是   html:4t (注意这个是HTML)
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+  <title>Document</title>
+</head>
+<body>
+  
+</body>
+</html>
+
+
+
+还有html:xt  (注意这个是XHTML)
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+  <title>Document</title>
+</head>
+<body>
+  
+</body>
+</html>
