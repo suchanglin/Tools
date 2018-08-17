@@ -1,2 +1,3 @@
 默认光标是竖形状，切换：按 insert 键。
 选词  Ctrl+ e
+icon的引入需要注意mui.ttf文件
