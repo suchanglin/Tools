@@ -1,0 +1,7 @@
+sublime导航隐藏之后，重新展示方法：
+
+Ctrl + shift + p  打开命令面板
+
+输入view:Toggle Menu
+
+选中之后回车  enter  即可。
