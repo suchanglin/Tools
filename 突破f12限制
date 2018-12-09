@@ -1,3 +1,16 @@
 突破f12的限制
 
 Ctrl+Shift+j
+
+
+禁止右键，禁止F12
+    document.oncontextmenu = function() {
+     return false
+    };
+    $(document).keydown(function(e) {
+     e = window.event || e || e.which;
+     if (e.keyCode == 123) {
+       location.href = 'https://zhangxuefang.com';
+       return false
+     }
+    });
