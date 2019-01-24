@@ -1,0 +1,210 @@
+前言
+webpack和gulp最大的区别在于它是一个打包工具，它串联起了整个前端工程化的每一项内容。我非常庆幸的是经历过webpack1到2的升级，也经历了2到3的升级，
+打包的相关内容也越来越多。如今webpack从3变成4，很多人抱怨webpack的配置太过于复杂，在webpack4以后它的配置会变得越来越简单，
+对于开发者来说，entry，output，loader，plugin四大板块是必须要清楚的。
+
+entry 输入
+output 输出
+loader 打包规则
+plugin 插件生态
+
+当你了解了上面的这些内容，还不够。你需要了解各个版本间的差异性，这样你才能充分利用它所有的功能。Webpack1到2最大的升级是tree-shaking，
+其次是配置文件的对象化，再其次包括插件的写法优化。Webpack2到3的最大升级是scope-hoisting。3到4简化了整个打包配置操作。
+
+code-spliting
+code-spliting（代码分割）应该是所有前端人都知道的优化点。当你单页面做越做越大的时候，非首屏的页面就会考虑到不优先加载。
+但是怎么去划分懒加载的包，最高效的方法就是路由懒加载。
+举个栗子，在你使用vue路由的时候，你可能会考虑到除了第一页的内容，不会预先加载，会延时加载后面几页的功能。这七个页面会从 app.js 中拆分成为7个js包。
+这样的代码分割，在大型的单页面应用中，我们必须使用到因为后面的页面我们不需要提前加载。
+
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+
+Vue.use(VueRouter);
+
+const routes = [
+  {
+    path: '/',
+    component: resolve => require(['../views/Map'], resolve),
+  },
+  {
+    path: '/setting',
+    component: resolve => require(['../views/Setting'], resolve),
+  },
+  {
+    path: '/cities',
+    component: resolve => require(['../views/Cities'], resolve),
+  },
+  {
+    path: '/discovery',
+    component: resolve => require(['../views/Discovery'], resolve),
+  },
+  {
+    path: '/about',
+    component: resolve => require(['../views/About'], resolve),
+  },
+  {
+    path: '/more',
+    component: resolve => require(['../views/More'], resolve),
+  },
+  {
+    path: '/weather',
+    component: resolve => require(['../views/Weather'], resolve),
+  },
+];
+const router = new VueRouter({ mode: 'history', base: '/app/', routes });
+
+
+随着webpack2语法的进化，上面的代码也可以被写成这样子。
+
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+
+Vue.use(VueRouter);
+
+const routes = [
+  {
+    path: '/',
+    component:() => import('../views/Map'),
+  },
+  {
+    path: '/setting',
+    component: () => import('../views/Setting'),
+  },
+  {
+    path: '/cities',
+    component: () => import('../views/Cities'),
+  },
+  {
+    path: '/discovery',
+    component: () => import('../views/Discovery'),
+  },
+  {
+    path: '/about',
+    component: () => import('../views/About'),
+  },
+  {
+    path: '/more',
+    component: () =>import('../views/More'),
+  },
+  {
+    path: '/weather',
+    component: () => import('../views/Weather'),
+  },
+];
+const router = new VueRouter({ mode: 'history', base: '/app/', routes });
+
+每个懒加载的背后都附送一个钩子。使用了code-splitting，webpack会根据你可以将一些首屏不显示的内容额外打包成为一个独立的js。
+webpack2中懒加载打包会连同样式以内联的形式一起打入JS中，这样的好处在于公共样式也被细化抽离，但是可能会造成样式冗余。
+webpack3则提供了ExtractTextPlugin中提供了抽取公共样式的方法，公共样式可以额外抽离。
+
+
+tree-shaking
+tree-shaking是rollup提出的一款技术，反哺到了webpack2的升级版本中。这可以说一个非常难以理解的概念，就像lodash这样的公共方法，
+在项目编写会积累的越来越多，但是我们不希望将这些方法全部打包入一个js文件当中。常见的方法有：
+
+项目解耦，将一个大型项目拆分成几个小型项目
+使用tree-shaking，它只打包有用的方法，没有用的方法则不会进行打包
+
+tree-shaking默认是不会触发的。在webpack3，你需要配置babel，uglifyjs-webpack-plugin等才能触发。在webpack4，production模式默认触发。
+首先，如果在编写代码过程中必须使用得当，纯函数对于tree项目打包有相当大的优势，也就是你的变量尽量要保持函数间的干净，不要相互污染。
+
+
+情景一：最简单的例子
+在index.js引入另一个js中的两个方法，webpack4的打包结果是只会存在console.log(1)。而console.log(2)已不会进入打包的范围当中。
+//core.js
+export function test1() {
+    console.log(1)
+}
+
+export function test2() {
+    console.log(2)
+}
+//index.js
+import {test1} from './core'
+test1()
+
+
+
+情景二：存在一个常量或者变量
+当core.js有个全局变量a=2，这个变量可能会在别的函数中改变，webpack会检查该函数是否在打包范围内。不会在该范围内的，如test1，则不会被打包。
+//core.js
+let a = 2;
+
+export function test1() {
+    a = 1;
+    console.log(a);
+}
+
+export function test2() {
+    console.log(a);
+}
+//index.js
+import {test2} from './core'
+test2()
+
+
+
+情景三：存在一个对象
+如果你输出的是一个对象，你只需要其中的一个方法，此时你同样结构只需要一个方法test2，别的方法是不会被打包进去。
+//core.js
+let a = 2;
+
+function test1() {
+    a = 1;
+    console.log(a);
+}
+
+function test2() {
+    console.log(a);
+}
+
+function test3() {
+    console.log(3)
+}
+
+function test4() {
+    console.log(4)
+}
+
+export {
+  test1,
+  test2,
+  test3,
+  test4
+}
+
+
+情景四：存在prototype或者class
+其实结果很明显，由于别的方法会在实例化的时候声明，由于被实例化的新的对象相互间是有联系的，这也注定了它会被打包进去。
+
+
+scope-hoisting
+它的中文名就是作用域提升，这个名字非常熟悉。说到底，javascript的模块化就是通过闭包来实现作用域的隔离，但是当我们模块化程度达到一定程度之后，
+过多闭包会让某些变量没法销毁，造成性能劣势。作用域提升即是把两个闭包合成一个闭包。
+通过Scope Hoisting优化Webpack输出里面讲了最最基础的一个作用域提升的例子，我在这里借用这个例子。首先写两个js，它们相互之间是引用关系。
+这里采用webpack4版本举例，在development mode时没有采用scope hoisting，而production mode时默认开启了该优化。
+
+// core.js
+export const a = 'Hello,Webpack';
+// index.js 
+import { a } from './base.js';
+console.log(a);
+
+
+
+
+
+
+development mode
+
+
+
+
+
+
+production mode
+
+如果你在项目中使用webpack3，你需要开启webpack.optimize.ModuleConcatenationPlugin来满足作用域提升的功能。
+如果你在项目中使用webpack4，那么你在开发模式即是关闭作用域提升，在生产模式开启该功能。
+
