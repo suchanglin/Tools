@@ -1,0 +1,17 @@
+1打开软件>点击菜单栏的preferences >package Control
+
+2搜索框输入：pcip
+
+3此时我们看见了第一个首选的插件Package Control:Install Package，我们直接回车就好，稍等片刻会再次出现一个搜索框.
+
+4搜索框输入View In Browser，安装View In Browser插件
+
+5设置的快捷键是"f12"(自定义自己喜欢的快捷方式)
+
+6点击Preferences > key Bindings 
+
+7在右边空白框的"[]"括号中间内输入：
+
+ { "keys": ["f12"], "command": "open_in_browser" },
+
+  然后ctrl+s保存关闭窗口，重启。
