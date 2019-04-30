@@ -1,0 +1,29 @@
+
+## How do we download a blob url video
+
+<video id="playerVideo" width="450px" autoplay="autoplay" height="338px" 
+       style="height:100%;width:100%;" class="mejs-rai-e"
+       src="blob:http://www.example.com/d70a74e1-0324-4b9f-bad4-84e3036ad354">
+</video>
+
+
+Steps:
+
+1.Open the browser's Dev Tools (usually F12, or Ctrl-Shift-I, or right-click and then Inspect in the popup menu) 
+on the page with the video you are interested in.
+2.Go to Network tab and then reload the page. The tab will get populated with a list of requests 
+(may be up to a hundred of them or even more).
+3.Search through the names of requests and find the request with .m3u8 extension. There may be many of them, but most likely 
+the first you find is the one you are looking for. It may have any name, e.g. playlist.m3u8.
+4.Open the request and under Headers subsection you will see request's full URL in Request URL field. Copy it.
+
+获得了https://media001.geekbang.org/dc8f8f78f450431a9c9a7e988f6557e2/b1fc8d33e3c34fb5853f854550f
+274eb-45313222d72b8d0b5712d2fa92d2c885-hd.m3u8  地址。
+
+1、M3U8下载
+2、封装转换
+可以把下载的M3U8视频转换成FLV、MP4、MKV、TS等其他的视频格式，这样在任何播放器当中都能播放。
+3、视频合并
+M3U8 Downloader 内置了 FFmpeg Joiner，它还能把分散的M3U8视频文件合并到一起，形成一个完整的视频文件！
+
+1.百度网盘下载地址：https://pan.baidu.com/share/init?surl=Je2p4cGzJzNLBagC51XZ6Q 密码: 2ra1
