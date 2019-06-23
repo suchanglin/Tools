@@ -1,0 +1,32 @@
+ mkdir 
+ 
+ vim   xx.js 
+ 
+ ll
+ 
+ ls
+ 
+ rm
+ 
+ mv
+ 
+ esc i
+ 
+ :w
+ 
+ :q
+ 
+ 
+ cp  a1.js  src/a1.js
+ 
+ :wq
+ 
+ pwd
+ 
+ cat xx.js
+ 
+ head xx.js -n 1
+ 
+ tail xx.js -n 2
+ 
+ grep '2' xx.js
