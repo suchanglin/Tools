@@ -1,8 +1,0 @@
-直接升级  npm i npm -g
-
-
-再重新install
-
-
-
-npm  install -g @vue/cli
