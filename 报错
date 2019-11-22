@@ -1,0 +1,7 @@
+I had this issue as I had webpack-dev-server v2.x installed against webpack v4.
+
+now, updated to dev-server v3 and it works.
+
+    "webpack": "^4.8.3",
+    "webpack-cli": "^2.1.3",
+    "webpack-dev-server": "^3.1.4",
