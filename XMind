@@ -1,8 +1,0 @@
-XMind 默认安装到C盘， win+R打开注册表
-在注册表中，找到如下路径
-路径指引：\HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion
-
-
-在CurrentVersion下如上图可以看到，有两个路径配置。Xmind使用的是“ProgramFilesDir”这个配置项。所以修改此配置项。
-
-【重要】将注册表中刚才修改的项“ProgramFilesDir”，再改回默认值
