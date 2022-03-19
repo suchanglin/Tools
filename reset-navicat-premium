@@ -1,0 +1,26 @@
+(体验Navicat Premium 16，无限重置试用14天方法(附源码),将以下内容保存成xxx.bat 直接运行xxx.bat 即可！)
+
+
+
+
+
+
+@echo off
+
+echo Delete HKEY_CURRENT_USER\Software\PremiumSoft\NavicatPremium\Registration[version and language]
+for /f %%i in ('"REG QUERY "HKEY_CURRENT_USER\Software\PremiumSoft\NavicatPremium" /s | findstr /L Registration"') do (
+    reg delete %%i /va /f
+)
+echo.
+
+echo Delete Info folder under HKEY_CURRENT_USER\Software\Classes\CLSID
+for /f %%i in ('"REG QUERY "HKEY_CURRENT_USER\Software\Classes\CLSID" /s | findstr /E Info"') do (
+    reg delete %%i /va /f
+)
+echo.
+
+echo Finish
+
+pause
+
+
