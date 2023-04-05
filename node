@@ -1,0 +1,1 @@
+windows 7安装node14.15.0版本是没有问题的，采用nvm install xxxxxx,其他更高版本存在问题
