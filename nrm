@@ -1,0 +1,7 @@
+安装多个 npm 管理器  nrm，出错，
+
+最大可能是因为应该使用 open 的 CommonJs 规范的包，现在 open v9.0.0 是 ES Module 版本的包。
+
+执行代码即可 
+
+npm install -g nrm open@8.4.2 --save
